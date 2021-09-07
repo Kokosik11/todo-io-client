@@ -13,7 +13,7 @@ const ForLogin = (props) => {
         <div className="IsNotAuth">Ещё не зарегистрированы?</div>
         <div className="line"></div>
       </div>
-      <button className="SignupBtn" onClick={props.handle}>Зарегистрироваться</button>
+      <button className="SignupBtn second-btn" onClick={props.handle}>Создать аккаунт</button>
     </div>
   )
 }
@@ -26,7 +26,7 @@ const ForSignup = (props) => {
         <div className="IsNotAuth">Уже зарегистрированы?</div>
         <div className="line"></div>
       </div>
-      <button className="LoginBtn" onClick={props.handle}>Войти</button>
+      <button className="LoginBtn second-btn" onClick={props.handle}>Войти</button>
     </div>
   )
 }

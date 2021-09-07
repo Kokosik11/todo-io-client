@@ -1,16 +1,68 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../../context/UserProvider';
 
 const Signup = () => {
+    const [ isSubmitting, setIsSubmitting ] = useState(false);
+    const [ error, setError ] = useState("")
     const [ username, setUsername ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ repeatPass, seReapetPass ] = useState("");
+    const [ userContext, setUserContext ] = useContext(UserContext);
+
+    const submitHandler = e => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setError("");
+
+        const genericErrorMessage = "Error! Please try again later";
+        if(password === repeatPass) {
+            fetch("http://localhost:3010/users/signup", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            })
+                .then(async response => {
+                    setIsSubmitting(false);
+                    if(!response.ok) {
+                        if (response.status === 400) {
+                            setError("Please fill all the fields correctly!")
+                        } else if (response.status === 401) {
+                            setError("Invalid email and password combination.")
+                        } else if (response.status === 500) {
+                            console.log(response)
+                            const data = await response.json()
+                            if (data.message) setError(data.message || genericErrorMessage)
+                        } else {
+                            setError(genericErrorMessage)
+                        }
+                    } else {
+                        const data = await response.json();
+                        setUserContext(oldValues => {
+                            return { ...oldValues, token: data.token }
+                        })
+                    }
+                })
+                .catch(error => {
+                    setIsSubmitting(false)
+                    setError(genericErrorMessage)
+                })
+        } else {
+            setIsSubmitting(false)
+            setError("Please fill all password fields correctly!");
+        }
+        
+    }
 
     const handleButtonClick = () => {
         console.log(`${username}, pass: ${password}, repeated pass: ${repeatPass}`);
     }
 
     return (
-        <div className="Login">
+        <div className="Signup">
+            <div class="ErrorMessage">
+                {error}
+            </div>
             <div>
                 <label for="username">Ваш никнейм</label>
                 <input 
@@ -41,7 +93,7 @@ const Signup = () => {
                 />
             </div>
             
-            <button className="SignupBtn" onClick={handleButtonClick}>Зарегистрироваться</button>
+            <button className="LoginBtn" onClick={submitHandler}>{isSubmitting ? "Регистрируемся..." : "Зарегистрироваться"}</button>
         </div>
     )
 }
