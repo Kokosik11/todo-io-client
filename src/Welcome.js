@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import { UserContext } from './context/UserContext';
+
 import Logo from "./assets/logo.png";
 import "./welcome.css";
 
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Main from "./components/Main";
 
 const ForLogin = (props) => {
   return(
     <div>
-      <div class="is-content">
+      <div className="is-content">
         <div className="line"></div>
-        <div className="IsNotAuth">Ещё не зарегистрированы?</div>
+        <div className="IsNotAuth">if not sign up?</div>
         <div className="line"></div>
       </div>
-      <button className="SignupBtn second-btn" onClick={props.handle}>Создать аккаунт</button>
+      <button className="SignupBtn second-btn" onClick={props.handle}>Create account</button>
     </div>
   )
 }
@@ -21,24 +24,50 @@ const ForLogin = (props) => {
 const ForSignup = (props) => {
   return(
     <div>
-      <div class="is-content">
+      <div className="is-content">
         <div className="line"></div>
-        <div className="IsNotAuth">Уже зарегистрированы?</div>
+        <div className="IsNotAuth">Already sign up?</div>
         <div className="line"></div>
       </div>
-      <button className="LoginBtn second-btn" onClick={props.handle}>Войти</button>
+      <button className="LoginBtn second-btn" onClick={props.handle}>Log in</button>
     </div>
   )
 }
 
 const Welcome = () => {
   const [ isSingUp, setSingUp ] = useState(false);
+  const [ userContext, setUserContext ] = useContext(UserContext);
+
+  const verifyUser = useCallback(() => {
+    fetch("http://localhost:3010/users/refreshToken", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    }).then(async response => {
+      if(response.ok) {
+        const data = await response.json();
+        setUserContext(oldValues => {
+          return { ...oldValues, token: data.token }
+        })
+      } else {
+        setUserContext(oldValues => {
+          return { ...oldValues, token: null }
+        })
+      }
+
+      setTimeout(verifyUser, 5 * 60 * 1000);
+    })
+  }, [setUserContext])
+
+  useEffect(() => {
+    verifyUser();
+  }, [verifyUser])
 
   const handleButtonClick = () => {
     setSingUp(!isSingUp);
   }
 
-  return (
+  return userContext.token === null ? (
     <div className="Welcome">
       <div className="Form">
         <div className="heading">
@@ -51,6 +80,10 @@ const Welcome = () => {
         </div>
       </div>
     </div>
+  ) : userContext.token ? (
+    <Main />
+  ) : (
+    <h1>Loading...</h1>
   );
 }
 

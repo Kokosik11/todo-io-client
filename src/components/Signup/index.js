@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { UserContext } from '../../context/UserProvider';
+import { UserContext } from '../../context/UserContext';
 
 const Signup = () => {
     const [ isSubmitting, setIsSubmitting ] = useState(false);
@@ -60,11 +60,11 @@ const Signup = () => {
 
     return (
         <div className="Signup">
-            <div class="ErrorMessage">
+            <div className="ErrorMessage">
                 {error}
             </div>
             <div>
-                <label for="username">Ваш никнейм</label>
+                <label htmlFor="username">Your nickname</label>
                 <input 
                     type="text" 
                     name="username" 
@@ -74,7 +74,7 @@ const Signup = () => {
             </div>
             
             <div>
-                <label for="password">Ваш пароль</label>
+                <label htmlFor="password">Your password</label>
                 <input 
                     type="password" 
                     name="password" 
@@ -84,7 +84,7 @@ const Signup = () => {
             </div>
             
             <div>
-                <label for="repeatpass">Повторите пароль</label>
+                <label htmlFor="repeatpass">Repeat your password</label>
                 <input 
                     type="password" 
                     name="repeatpass" 
@@ -93,7 +93,7 @@ const Signup = () => {
                 />
             </div>
             
-            <button className="LoginBtn" onClick={submitHandler}>{isSubmitting ? "Регистрируемся..." : "Зарегистрироваться"}</button>
+            <button className="LoginBtn" onClick={submitHandler}>{isSubmitting ? "Waiting..." : "Sign up"}</button>
         </div>
     )
 }
