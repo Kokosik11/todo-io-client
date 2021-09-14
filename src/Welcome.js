@@ -8,6 +8,8 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Main from "./components/Main";
 
+import Loader from "./elements/Loader";
+
 const ForLogin = (props) => {
   return(
     <div>
@@ -83,7 +85,7 @@ const Welcome = () => {
   ) : userContext.token ? (
     <Main />
   ) : (
-    <h1>Loading...</h1>
+    <Loader />
   );
 }
 
