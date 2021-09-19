@@ -2,10 +2,12 @@ import "./style.css";
 
 const Loader = () => {
     return (
-        <div class="loading">
-            <div class="arc"></div>
-            <div class="arc"></div>
-            <div class="arc"></div>
+        <div className="loading-wrapper">
+            <div className="loading">
+                <div className="arc"></div>
+                <div className="arc"></div>
+                <div className="arc"></div>
+            </div>
         </div>
     )
 }
