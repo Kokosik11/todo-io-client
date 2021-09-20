@@ -28,12 +28,13 @@ const Tabs = props => {
                 </div>
 
                 <div className="component-papper">
-                    { currentTab === 0 ? <ActionPlace handleButtonClick={handleButtonClick} /> : 
-                    currentTab === 1 ? <Friends /> : 
-                    currentTab === 2 ? <CurrentProject /> : 
-                    currentTab === 3 ? <CreateProject /> :
-                    "Component not found" }
-
+                    { 
+                        currentTab === 0 ? <ActionPlace handleButtonClick={handleButtonClick} /> : 
+                        currentTab === 1 ? <Friends /> : 
+                        currentTab === 2 ? <CurrentProject /> : 
+                        currentTab === 3 ? <CreateProject /> :
+                        "Component not found" 
+                    }
                 </div>
             </div>
         </div>

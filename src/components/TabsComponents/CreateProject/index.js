@@ -15,25 +15,17 @@ const CreateProject = () => {
     }
     
     const handleChangeActionCompleted = (id) => {
-        let actions = projectActions.map(action => {
-            if(action.id === id) {
-                action.isCompleted = !action.isCompleted
-            }
-
-            return action
-        })
+        let actions = projectActions.map(action => (
+            (action.id === id && { ...action, isCompleted: !action.isCompleted }) || action
+        ))
 
         setProjectActions([...actions]);
     }
 
     const handleChangeActionTitle = (id, value) => {
-        let actions = projectActions.map(action => {
-            if(action.id === id) {
-                action.title = value
-            }
-
-            return action
-        })
+        let actions = projectActions.map(action => (
+            (action.id === id && { ...action, title: value }) || action
+        ))
 
         setProjectActions([...actions]);
         console.log(projectActions)
