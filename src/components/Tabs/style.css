@@ -44,6 +44,10 @@
     color: #c684df;
 }
 
+.tab-button:focus {
+    color: #c684df;
+}
+
 .tab-button_active {
     color: #B637E5;
     border-bottom: 2px solid #B637E5;

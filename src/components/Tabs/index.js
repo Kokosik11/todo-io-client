@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { ActionPlace, Friends, CurrentProject } from "../TabsComponents";
+import { ActionPlace, Friends, CurrentProject, CreateAction } from "../TabsComponents";
 import Search from "../../assets/Search.svg";
 
 import './style.css';
@@ -8,23 +8,7 @@ const Tabs = props => {
     const [ currentTab, setCurrentTab ] = useState(0);
 
     const handleButtonClick = num => {
-        switch(num) {
-            case 0: {
-                setCurrentTab(0);
-                break;
-            }
-            case 1: {
-                setCurrentTab(1);
-                break;
-            }
-            case 2: {
-                setCurrentTab(2);
-                break;
-            }
-            default: {
-                setCurrentTab(null);
-            }
-        }
+        setCurrentTab(num);
     }
     
     return (
@@ -44,9 +28,10 @@ const Tabs = props => {
                 </div>
 
                 <div className="component-papper">
-                    { currentTab === 0 ? <ActionPlace /> : 
+                    { currentTab === 0 ? <ActionPlace handleButtonClick={handleButtonClick} /> : 
                     currentTab === 1 ? <Friends /> : 
                     currentTab === 2 ? <CurrentProject /> : 
+                    currentTab === 3 ? <CreateAction /> :
                     "Component not found" }
 
                 </div>

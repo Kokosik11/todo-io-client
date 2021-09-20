@@ -74,7 +74,7 @@
     align-items: center;
 }
 
-.action-create div {
+.action-create button {
     display: flex;
     width: 80%;
     height: 80%;
@@ -88,10 +88,23 @@
 
     font-weight: 600;
     font-size: 20px;
+    outline: none;
 
     color: #949494;
+    transition: .35s;
 }
 
-.action-create div img {
+.action-create button:hover {
+    cursor: pointer;
+    border-color: #ebb5ff;
+    color: #ebb5ff;
+}
+
+.action-create button:focus,
+.action-create button:active {
+    border-color: #ebb5ff;
+}
+
+.action-create button img {
     margin-bottom: 13px;
 }

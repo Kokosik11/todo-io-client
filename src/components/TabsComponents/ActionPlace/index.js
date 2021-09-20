@@ -10,7 +10,7 @@ const ActionPlace = props => {
     const [ userContext, setUserContext ] = useContext(UserContext);
 
     const fetchUserDetails = useCallback(() => {
-        fetch("http://localhost:3010/users/action/", {
+        fetch("http://localhost:3010/users/project/", {
             method: "GET",
             credentials: "include",
 
@@ -45,23 +45,23 @@ const ActionPlace = props => {
     const dateNow = new Date();
 
     const getTimeLefts = time => {
-        let lefts = Math.trunc((dateNow - new Date(time)) / 1000 / 60 / 60)
+        let after = Math.trunc((dateNow - new Date(time)) / 1000 / 60 / 60)
         
-        if(lefts > 24 * 30) {
+        if(after > 24 * 30) {
             return (
-                <span>{Math.trunc(lefts/24/30)} months left</span>
+                <span>{Math.trunc(after/24/30)} months after</span>
             )
-        } else if(lefts > 24 * 7) {
+        } else if(after > 24 * 7) {
             return (
-                <span>{Math.trunc(lefts/24/7)} weeks left</span>
+                <span>{Math.trunc(after/24/7)} weeks after</span>
             )
-        } else if(lefts > 24) {
+        } else if(after > 24) {
             return (
-                <span>{Math.trunc(lefts/24)} days left</span>
+                <span>{Math.trunc(after/24)} days after</span>
             )
         } else {
             return (
-                <span>{lefts} hours left</span>
+                <span>{after} hours after</span>
             )
         }
 
@@ -97,10 +97,10 @@ const ActionPlace = props => {
                 }
 
                 <div className="action-create">
-                    <div>
+                    <button onClick={() => props.handleButtonClick(3)}>
                         <img src={EditSquare} alt="Edit Square icon" />
                         Add project
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
