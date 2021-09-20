@@ -1,11 +1,11 @@
 import ActionPlace from "./ActionPlace";
 import Friends from "./Friends";
 import CurrentProject from "./CurrentProject";
-import CreateAction from "./CreateAction";
+import CreateProject from "./CreateProject";
 
 export {
     ActionPlace,
     Friends,
     CurrentProject,
-    CreateAction,
+    CreateProject,
 }

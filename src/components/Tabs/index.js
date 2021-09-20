@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { ActionPlace, Friends, CurrentProject, CreateAction } from "../TabsComponents";
+import { ActionPlace, Friends, CurrentProject, CreateProject } from "../TabsComponents";
 import Search from "../../assets/Search.svg";
 
 import './style.css';
@@ -31,7 +31,7 @@ const Tabs = props => {
                     { currentTab === 0 ? <ActionPlace handleButtonClick={handleButtonClick} /> : 
                     currentTab === 1 ? <Friends /> : 
                     currentTab === 2 ? <CurrentProject /> : 
-                    currentTab === 3 ? <CreateAction /> :
+                    currentTab === 3 ? <CreateProject /> :
                     "Component not found" }
 
                 </div>
