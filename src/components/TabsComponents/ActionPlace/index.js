@@ -90,7 +90,7 @@ const ActionPlace = props => {
                         </div>
 
                         <div className="mini-statistic">
-                            {action.Todoes.length}
+                            {action.actions.length}
                         </div>
                     </div>
                 ))

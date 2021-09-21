@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
 
 import "./style.css";
 
@@ -6,6 +7,9 @@ const CreateProject = () => {
     const [ projectTitle, setProjectTitle ] = useState("");
     const [ projectDescription, setProjectDescription ] = useState("");
     const [ projectActions, setProjectActions ] = useState([]);
+    const [ error, setError ] = useState("")
+    const [ isSubmitting, setIsSubmitting ] = useState(false);
+    const [ userContext, setUserContext ] = useContext(UserContext);
     // const [ projectIcon, setProjectIcon ] = useState("");
 
     const addAction = () => {
@@ -31,23 +35,40 @@ const CreateProject = () => {
         console.log(projectActions)
     }
 
-    // const addAction = () => {
-        // let Action =    <div key={projectActions.length} className="project-action_new-action">
-        //                     <input
-        //                         type="text"
-        //                         placeholder="Action title..."
-        //                         id="action"
-        //                         name="action"
-        //                     />
-        //                     <input 
-        //                         type="checkbox"
-        //                         name="isCompleted"
-        //                         id="isCompleted"
-        //                     />
-        //                 </div>
+    const submitHandler = e => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setError("");
 
-    //     setProjectActions([Action, ...projectActions]);
-    // }
+        const genericErrorMessage = "Error! Please try again later";
+
+        fetch("http://localhost:3010/users/project/create", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userContext.token}`
+            },
+
+            body: JSON.stringify({ projectTitle, projectDescription, projectActions: [...projectActions] })
+        })
+            .then(async response => {
+                setIsSubmitting(false);
+                if(!response.ok) {
+                    if (response.status === 400) {
+                        setError("Please fill all the fields correctly!")
+                    } else if (response.status === 401) {
+                        setError("Invalid email and password combination.")
+                    } else {
+                        setError(genericErrorMessage)
+                    }
+                }
+            })
+            .catch(error => {
+                setIsSubmitting(false)
+                setError(genericErrorMessage)
+            })
+    }
 
     return (
         <div className="create-project">
@@ -95,7 +116,7 @@ const CreateProject = () => {
                         ))}
                     </div>
                 </div>
-                <button>Create project</button>
+                <button onClick={submitHandler}>Create project</button>
             </div>
         </div>
         
