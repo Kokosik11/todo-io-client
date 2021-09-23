@@ -35,15 +35,21 @@
     object-fit: cover;
 }
 
-.user-details a {
+.user-details button {
+    font-weight: 600;
+    font-size: 17px;
     color: #B637E5;
-    text-decoration-color: #b737e500;
     margin-right: 22px;
+    border: none;
+    background: none;
+    outline: none;
+    border-bottom: 2px solid #b737e500;
     transition: .25s;
 }
 
-.user-details a:hover {
-    text-decoration-color: #B637E5;
+.user-details button:hover {
+    border-color: #B637E5;
+    cursor: pointer;
 }
 
 @media (max-width: 430px) {

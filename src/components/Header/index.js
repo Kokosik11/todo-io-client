@@ -14,7 +14,7 @@ const Header = props => {
             </div>
 
             <div className="user-details">
-                <div className="welcome-phrase">Lets do this, <a href="/">{props.name}</a></div>
+                <div className="welcome-phrase">Lets do this, <button onClick={props.usernameClickFunc}>{props.name}</button></div>
                 <img className="avatar" src={props.avatar ? props.avatar : UnkAvatar} alt="avatar"/>
             </div>
         </div>
